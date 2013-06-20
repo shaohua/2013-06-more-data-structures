@@ -4,10 +4,21 @@ var makeLinkedList = function(){
   newLinkedList.head = null;
   newLinkedList.tail = null;
 
-  newLinkedList.addToTail = function(){
+  newLinkedList.addToTail = function(value){
+    var node = makeNode(value);
+    if (newLinkedList.head === null && newLinkedList.tail === null) {
+      newLinkedList.head = node;
+      newLinkedList.tail = node;
+    } else {
+    newLinkedList.tail.next = node;
+    newLinkedList.tail = node;
+    }
   };
 
   newLinkedList.removeHead = function(){
+    var output = newLinkedList.head;
+    newLinkedList.head = newLinkedList.head.next;
+    return output.value;
   };
 
   newLinkedList.contains = function(){
