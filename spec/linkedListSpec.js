@@ -46,6 +46,15 @@ describe("linkedList", function() {
     expect(linkedList.removeHead()).toEqual('bar1');
   });
 
+    it("contains should return the correct boolean value", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.addToTail('bar3');
+    linkedList.addToTail('bar4');
+    expect(linkedList.contains('bar3')).toEqual(true);
+    expect(linkedList.contains('hi Shao')).toEqual(false);
+  });
+
   // it("should have a head and tail", function() {
   //   expect(Object.keys(linkedList)).toContain("head");
   //   expect(Object.keys(linkedList)).toContain("tail");
