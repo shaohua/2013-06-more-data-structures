@@ -11,5 +11,26 @@ describe("tree", function() {
     expect('value' in tree).toBe(true);
   });
 
+  it("should add one child", function() {
+    tree.addChild('bar1');
+    expect(tree.children[0].value).toEqual('bar1');
+  });
+
+  it("should add multiple children at the same level", function() {
+    tree.addChild('bar1');
+    tree.addChild('bar2');
+    tree.addChild('bar3');
+    tree.addChild('bar4');
+    expect(tree.children[0].value).toEqual('bar1');
+    expect(tree.children[1].value).toEqual('bar2');
+    expect(tree.children[2].value).toEqual('bar3');
+    expect(tree.children[3].value).toEqual('bar4');
+  });
+
+
+  it("This test is designed to fail!", function() {
+    expect(1).toEqual(2);
+  });
+
   // Add more tests here to test the functionality of tree.
 });

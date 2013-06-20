@@ -1,6 +1,6 @@
-var makeTree = function(){
+var makeTree = function(value){
   var newTree = {};
-  newTree.value = undefined;
+  newTree.value = value;
   newTree.children = undefined;
 
   newTree = _.extend(newTree, treeMethods);
@@ -9,7 +9,10 @@ var makeTree = function(){
 
 var treeMethods = {};
 
-treeMethods.addChild = function(){
+treeMethods.addChild = function(value){
+  this.children = this.children || [];
+  var subtree = makeTree(value);
+  this.children.push(subtree);
 };
 
 treeMethods.contains = function(){
