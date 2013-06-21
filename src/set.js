@@ -21,5 +21,18 @@ setPrototype.contains = function(input){ // assuming input is a string for now!
   }
 };
 
-setPrototype.remove = function(){
+setPrototype.remove = function(input){
+  if ( this._storage.hasOwnProperty(input) ) {
+    delete this._storage[input];
+  }
+};
+
+setPrototype.size = function () {
+  var count = 0;
+  for(var key in this._storage){
+    if(this._storage.hasOwnProperty(key)){
+      count += 1;
+    }
+  }
+  return count;
 };
