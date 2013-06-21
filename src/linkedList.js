@@ -20,9 +20,23 @@ var makeLinkedList = function(){
 
   newLinkedList.removeHead = function(){
     var output = newLinkedList.head;
-    newLinkedList.head.next.previous = null;
-    newLinkedList.head = newLinkedList.head.next;
-    return output.value;
+    if(newLinkedList.head !== null){ // if the list is not empty
+
+      if(newLinkedList.tail === newLinkedList.head) { // when there is only one node
+        var onlyNode = newLinkedList.head;
+        newLinkedList.head = null;
+        newLinkedList.tail = null;
+        return onlyNode.value;
+      } else { // when there are more than one nodes
+        newLinkedList.head.next.previous = null;
+        newLinkedList.head = newLinkedList.head.next;
+        return output.value;
+      }
+
+    } else { // if the list is empty, then return null
+      return null;
+    }
+
   };
 
   newLinkedList.contains = function(search){
@@ -52,7 +66,23 @@ var makeLinkedList = function(){
   };
 
   newLinkedList.removeTail = function(){
+    var output = newLinkedList.tail;
+    if(newLinkedList.tail !== null){ // if the list is not empty
 
+      if(newLinkedList.tail === newLinkedList.head) { // when there is only one node
+        var onlyNode = newLinkedList.head;
+        newLinkedList.head = null;
+        newLinkedList.tail = null;
+        return onlyNode.value;
+      } else { // when there are more than one nodes
+        newLinkedList.tail.previous.next = null;
+        newLinkedList.tail = newLinkedList.tail.previous;
+        return output.value;
+      }
+
+    } else { // if the list is empty, then return null
+      return null;
+    }
   };
 
   return newLinkedList;

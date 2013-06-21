@@ -83,12 +83,60 @@ describe("linkedList", function() {
     expect(linkedList.head.value).toEqual('bar1');
   });
 
+  it("removeHead should work with empty list", function() {
+    expect(linkedList.removeHead()).toEqual(null);
+  });
+
   it("removeHead should return the correct value", function() {
     linkedList.addToTail('bar1');
     linkedList.addToTail('bar2');
     linkedList.addToTail('bar3');
     linkedList.addToTail('bar4');
     expect(linkedList.removeHead()).toEqual('bar1');
+  });
+
+  it("removeHead should work with one node lists", function() {
+    linkedList.addToHead('bar1');
+    linkedList.addToHead('bar2');
+    linkedList.removeHead();
+    linkedList.addToHead('bar3');
+    linkedList.removeHead();
+    linkedList.addToHead('bar4');
+    linkedList.removeHead();
+    expect(linkedList.removeHead()).toEqual('bar1');
+  });
+
+  it("removeTail should work with empty list", function() {
+    expect(linkedList.removeTail()).toEqual(null);
+  });
+
+  it("removeTail should return the correct value", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.addToTail('bar3');
+    linkedList.addToTail('bar4');
+    expect(linkedList.removeTail()).toEqual('bar4');
+  });
+
+  it("removeTail should delete the tail node", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.addToTail('bar3');
+    linkedList.addToTail('bar4');
+    expect(linkedList.contains('bar4')).toEqual(true);
+    expect(linkedList.removeTail()).toEqual('bar4');
+    expect(linkedList.contains('bar4')).toEqual(false);
+  });
+
+  it("removeTail should work with multiple additions and deletions", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.removeTail();
+    linkedList.addToTail('bar3');
+    linkedList.removeTail();
+    linkedList.addToTail('bar4');
+    linkedList.removeTail();
+    expect(linkedList.removeTail()).toEqual('bar1');
   });
 
     it("contains should return the correct boolean value", function() {
