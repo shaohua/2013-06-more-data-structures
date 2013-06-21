@@ -10,17 +10,25 @@ var HashTable = function(){
   this._storage = makeLimitedArray(this._limit);
 };
 
-HashTable.prototype.insert = function(key, value){
+HashTable.prototype.quickHash = function(key){
   var index = getIndexBelowMaxForKey(key, this._limit);
   index = Number(index);
+  return index;
+};
+
+HashTable.prototype.insert = function(key, value){
+  var index = this.quickHash(key);
   this._storage.set(index, value);
   return index;
 };
 
-HashTable.prototype.retrieve = function(){
+HashTable.prototype.retrieve = function(key){
+  return this._storage.get(this.quickHash(key));
 };
 
-HashTable.prototype.remove = function(){
+HashTable.prototype.remove = function(key){
+  var index = this.quickHash(key);
+  this._storage.set(index, undefined);
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
