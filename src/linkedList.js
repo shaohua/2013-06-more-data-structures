@@ -7,10 +7,13 @@ var makeLinkedList = function(){
   newLinkedList.addToTail = function(value){
     var node = makeNode(value);
     if (newLinkedList.head === null && newLinkedList.tail === null) {
+      //this branch deals with an empty list, and then add the first node
       newLinkedList.head = node;
       newLinkedList.tail = node;
     } else {
+      //this branch deals with a list with at least one node
     newLinkedList.tail.next = node;
+    node.previous = newLinkedList.tail;
     newLinkedList.tail = node;
     }
   };
@@ -33,6 +36,13 @@ var makeLinkedList = function(){
     return false;
   };
 
+  newLinkedList.addToHead = function(){
+  };
+
+  newLinkedList.removeTail = function(){
+
+  };
+
   return newLinkedList;
 };
 
@@ -40,6 +50,7 @@ var makeNode = function(value){
   var newNode = {};
   newNode.value = value;
   newNode.next = null;
+  newNode.previous = null;
 
   newNode.removeNextNode = function(){
   };

@@ -16,6 +16,11 @@ describe("linkedList", function() {
     expect(linkedList.contains).toEqual(jasmine.any(Function));
   });
 
+  it("should have methods named 'addToHead', 'removeTail'", function() {
+    expect(linkedList.addToHead).toEqual(jasmine.any(Function));
+    expect(linkedList.removeTail).toEqual(jasmine.any(Function));
+  });
+
 
   it("should be able to add nodes", function() {
     linkedList.addToTail('bar1');
@@ -28,6 +33,14 @@ describe("linkedList", function() {
     linkedList.addToTail('bar3');
     linkedList.addToTail('bar4');
     expect(linkedList.tail.value).toEqual('bar4');
+  });
+
+  it("should be able to return correct previous value", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.addToTail('bar3');
+    linkedList.addToTail('bar4');
+    expect(linkedList.tail.previous.value).toEqual('bar3');
   });
 
   it("adding multiple nodes shouldn't change the head", function() {
