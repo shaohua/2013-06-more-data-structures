@@ -33,10 +33,23 @@ describe("tree", function() {
     tree.addChild('bar3');
     tree.addChild('bar4');
     expect(tree.contains('bar1')).toEqual(true);
-    // expect(1).toEqual(2);
-
   });
 
+  it("should handle complex trees", function() {
+    tree.addChild('bar1');
+    tree.children[0].addChild('grandchild0');
+    tree.children[0].children[0].addChild('greatGrandchild0');
+    tree.addChild('bar2');
+    tree.children[1].addChild('grandchild1');
+    tree.children[1].addChild('grandchild2');
+    tree.addChild('bar3');
+    tree.children[2].addChild('grandchild3');
+    tree.children[2].children[0].addChild('greatGrandchild1');
+    tree.addChild('bar4');
+    expect(tree.contains('greatGrandchild1')).toEqual(true);
+    expect(tree.contains('greatGrandchild0')).toEqual(true);
+
+  });
 
   it("This test is designed to fail!", function() {
     expect(1).toEqual(2);
