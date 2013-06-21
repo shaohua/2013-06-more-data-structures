@@ -139,7 +139,7 @@ describe("linkedList", function() {
     expect(linkedList.removeTail()).toEqual('bar1');
   });
 
-    it("contains should return the correct boolean value", function() {
+  it("contains should return the correct boolean value", function() {
     linkedList.addToTail('bar1');
     linkedList.addToTail('bar2');
     linkedList.addToTail('bar3');
@@ -147,6 +147,40 @@ describe("linkedList", function() {
     expect(linkedList.contains('bar3')).toEqual(true);
     expect(linkedList.contains('hi Shao')).toEqual(false);
   });
+
+  it("should removeNextNode() and return its value", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    expect(linkedList.head.removeNextNode()).toEqual('bar2');
+  });
+
+  it("should removeNextNode(), and removet the actual object", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.head.removeNextNode();
+    expect(linkedList.contains('bar2')).toEqual(false);
+  });
+
+  it("should removeNextNode() in a complex list", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.addToTail('bar3');
+    linkedList.addToTail('bar4');
+    linkedList.head.next.removeNextNode();
+    expect(linkedList.contains('bar2')).toEqual(true);
+    expect(linkedList.contains('bar3')).toEqual(false);
+  });
+
+  it("should removeNextNode() from a second to last node", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.addToTail('bar3');
+    linkedList.addToTail('bar4');
+    linkedList.tail.previous.removeNextNode();
+    expect(linkedList.contains('bar3')).toEqual(true);
+    expect(linkedList.contains('bar4')).toEqual(false);
+  });
+
 
   // it("should have a head and tail", function() {
   //   expect(Object.keys(linkedList)).toContain("head");

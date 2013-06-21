@@ -12,9 +12,9 @@ var makeLinkedList = function(){
       newLinkedList.tail = node;
     } else {
       //this branch deals with a list with at least one node
-    newLinkedList.tail.next = node;
-    node.previous = newLinkedList.tail;
-    newLinkedList.tail = node;
+      newLinkedList.tail.next = node;
+      node.previous = newLinkedList.tail;
+      newLinkedList.tail = node;
     }
   };
 
@@ -95,6 +95,23 @@ var makeNode = function(value){
   newNode.previous = null;
 
   newNode.removeNextNode = function(){
+    var deleted_node = this.next;
+    if (this.next === null ) { //we are at the last node
+      return null;
+    } else {
+
+      if(this.next.next === null){ //we are at the second to last node
+        //todo
+        //we need to take care of tail
+        this.next = null;
+      } else { //we are not in the second to last nor last node
+        this.next = this.next.next;
+        this.next.previous = this;
+      }
+
+    }
+    delete this.next;
+    return deleted_node.value;
   };
 
   return newNode;
