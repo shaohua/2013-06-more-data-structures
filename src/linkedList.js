@@ -20,6 +20,7 @@ var makeLinkedList = function(){
 
   newLinkedList.removeHead = function(){
     var output = newLinkedList.head;
+    newLinkedList.head.next.previous = null;
     newLinkedList.head = newLinkedList.head.next;
     return output.value;
   };

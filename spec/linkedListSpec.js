@@ -35,12 +35,23 @@ describe("linkedList", function() {
     expect(linkedList.tail.value).toEqual('bar4');
   });
 
-  it("should be able to return correct previous value", function() {
+  it("should be able to return a value for previous", function() {
     linkedList.addToTail('bar1');
     linkedList.addToTail('bar2');
     linkedList.addToTail('bar3');
     linkedList.addToTail('bar4');
     expect(linkedList.tail.previous.value).toEqual('bar3');
+  });
+
+    it("removeHead should change next's previous value to null", function() {
+    linkedList.addToTail('bar1');
+    linkedList.addToTail('bar2');
+    linkedList.addToTail('bar3');
+    linkedList.addToTail('bar4');
+    linkedList.removeHead();
+    linkedList.removeHead();
+    linkedList.removeHead();
+    expect(linkedList.tail.previous).toEqual(null);
   });
 
   it("adding multiple nodes shouldn't change the head", function() {
