@@ -51,9 +51,5 @@ describe("tree", function() {
 
   });
 
-  it("This test is designed to fail!", function() {
-    expect(1).toEqual(2);
-  });
-
   // Add more tests here to test the functionality of tree.
 });
