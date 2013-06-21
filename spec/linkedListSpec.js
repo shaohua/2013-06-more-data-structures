@@ -54,6 +54,27 @@ describe("linkedList", function() {
     expect(linkedList.tail.previous).toEqual(null);
   });
 
+  it("addToHead should add a new node to the head and change newLinkedList's head property", function() {
+    linkedList.addToHead('bar1');
+    linkedList.addToHead('bar2');
+    linkedList.addToHead('bar3');
+    linkedList.addToHead('bar4');
+    expect(linkedList.head.previous).toEqual(null);
+    expect(linkedList.head.value).toEqual('bar4');
+  });
+
+  it("addToHead should add a node in the correct order with removeHead calls as well", function() {
+    linkedList.addToHead('bar1');
+    linkedList.addToHead('bar2');
+    linkedList.removeHead();
+    linkedList.addToHead('bar3');
+    linkedList.addToHead('bar4');
+    linkedList.removeHead();
+    expect(linkedList.head.previous).toEqual(null);
+    expect(linkedList.head.next.value).toEqual('bar1');
+    expect(linkedList.head.value).toEqual('bar3');
+  });
+
   it("adding multiple nodes shouldn't change the head", function() {
     linkedList.addToTail('bar1');
     linkedList.addToTail('bar2');

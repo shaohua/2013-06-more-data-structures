@@ -37,7 +37,18 @@ var makeLinkedList = function(){
     return false;
   };
 
-  newLinkedList.addToHead = function(){
+  newLinkedList.addToHead = function(value){
+    var node = makeNode(value);
+    if (newLinkedList.head === null && newLinkedList.tail === null) {
+      //this branch deals with an empty list, and then add the first node
+      newLinkedList.head = node;
+      newLinkedList.tail = node;
+    } else {
+      //this branch deals with a list with at least one node
+    newLinkedList.head.previous = node;
+    node.next = newLinkedList.head;
+    newLinkedList.head = node; //last step: set list's head to the new node
+    }
   };
 
   newLinkedList.removeTail = function(){
