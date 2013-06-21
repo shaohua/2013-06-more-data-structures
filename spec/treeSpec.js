@@ -27,6 +27,16 @@ describe("tree", function() {
     expect(tree.children[3].value).toEqual('bar4');
   });
 
+  it("should find trees with certain values", function() {
+    tree.addChild('bar1');
+    tree.addChild('bar2');
+    tree.addChild('bar3');
+    tree.addChild('bar4');
+    expect(tree.contains('bar1')).toEqual(true);
+    // expect(1).toEqual(2);
+
+  });
+
 
   it("This test is designed to fail!", function() {
     expect(1).toEqual(2);
