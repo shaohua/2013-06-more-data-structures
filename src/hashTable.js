@@ -19,7 +19,10 @@ HashTable.prototype.quickHash = function(key){
 HashTable.prototype.reHash = function(new_limit){
   var retrievedArray = [];
   for(var i=0; i < this._limit; i++){
-    retrievedArray.push( this._storage.get(i) );
+    var from_storage = this._storage.get(i);
+    if(from_storage){
+      retrievedArray.push(from_storage);
+    }
   }
 
   console.log(retrievedArray);

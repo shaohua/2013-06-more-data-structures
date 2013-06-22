@@ -79,7 +79,7 @@ describe("hashTable", function() {
     console.log(hashTable._storage.get(0));
   });
 
-  it("should not break after changing the limit", function() {
+  it("should not break after changing the limit, case 1", function() {
     hashTable.insert('key1', 'value1');
     hashTable.insert('key2', 'value2');
     hashTable.insert('key3', 'value3');
@@ -90,6 +90,14 @@ describe("hashTable", function() {
     expect(hashTable.retrieve('key1')).toEqual('value1');
     expect(hashTable.retrieve('key2')).toEqual('value2');
     expect(hashTable.retrieve('key3')).toEqual('value3');
+  });
+
+  it("should not break after changing the limit, case 2", function() {
+    hashTable.insert('key1', 'value1');
+    expect(hashTable.retrieve('key1')).toEqual('value1');
+    hashTable = hashTable.reHash(10);
+    expect(hashTable.retrieve('key1')).toEqual('value1');
+
   });
 
   // add more tests here to test the functionality of hashTable
