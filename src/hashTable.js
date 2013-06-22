@@ -1,5 +1,5 @@
 var HashTable = function(){
-  this._limit = 1;
+  this._limit = 2;
 
   // Use a limited array to store inserted elements.
   // It'll keep you from using too much space. Usage:
@@ -14,6 +14,30 @@ HashTable.prototype.quickHash = function(key){
   var index = getIndexBelowMaxForKey(key, this._limit);
   index = Number(index);
   return index;
+};
+
+HashTable.prototype.reHash = function(new_limit){
+  var retrievedArray = [];
+  for(var i=0; i < this._limit; i++){
+    retrievedArray.push( this._storage.get(i) );
+  }
+
+  console.log(retrievedArray);
+
+  var output_hashtable = new HashTable();
+  //todo, fix two lines below, monkey patch
+  output_hashtable._limit = new_limit;
+  output_hashtable._storage = makeLimitedArray(new_limit);
+
+  for(var index=0; index < retrievedArray.length; index++){
+    for(var j=0; j < retrievedArray[index].length; j++){
+      output_hashtable.insert(retrievedArray[index][j][0], retrievedArray[index][j][1]);
+    }
+  }
+
+  // debugger;
+  return output_hashtable;
+
 };
 
 HashTable.prototype.insert = function(key, value){
