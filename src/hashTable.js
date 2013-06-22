@@ -20,9 +20,24 @@ HashTable.prototype.insert = function(key, value){
   var index = this.quickHash(key);
   var input = [key, value];
   var retrievedArray = this._storage.get(index) || [];
-  retrievedArray.push(input);
+
+  //Checking to see if our array index already contains the key.
+  //If yes, overwrite it. If no, push the new key:value pair to the array.
+  var found = false;
+  for (var i=0; i<retrievedArray.length; i++){
+    if (retrievedArray[i][0] === key) {
+      retrievedArray[i][1] = value;
+      found = true;
+    }
+  }
+
+  if (!found) {
+    retrievedArray.push(input);
+  }
+
   this._storage.set(index, retrievedArray);
   return index;
+
 };
 
 HashTable.prototype.retrieve = function(key){
@@ -41,7 +56,13 @@ HashTable.prototype.retrieve = function(key){
 
 HashTable.prototype.remove = function(key){
   var index = this.quickHash(key);
-  this._storage.set(index, undefined);
+  var retrievedArray = this._storage.get(index);
+  for (var i=0; i<retrievedArray.length; i++) {
+    if (retrievedArray[i][0] === key) {
+      retrievedArray.splice(i,1);
+    }
+  }
+  this._storage.set(index, retrievedArray);
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
