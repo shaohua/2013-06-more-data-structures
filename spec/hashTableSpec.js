@@ -11,17 +11,17 @@ describe("hashTable", function() {
     expect(hashTable.remove).toEqual(jasmine.any(Function));
   });
 
-  it("should add one key-value paire ", function() {
+  it("should add one key-value pair ", function() {
     var index = hashTable.insert('key1', 'value1');
-    expect( hashTable._storage.get(index) ).toEqual('value1');
+    expect( hashTable.retrieve('key1')).toEqual('value1');
   });
 
-  it("should retrieve one key-value paire ", function() {
+  it("should retrieve one key-value pair ", function() {
     hashTable.insert('key1', 'value1');
     expect(hashTable.retrieve('key1')).toEqual('value1');
   });
 
-  it("should remove one key-value paire ", function() {
+  it("should remove one key-value pair ", function() {
     hashTable.insert('key1', 'value1');
     hashTable.remove('key1');
     expect(hashTable.retrieve('key1')).toEqual(undefined);
@@ -30,8 +30,8 @@ describe("hashTable", function() {
   it("should add two key-value pairs", function() {
     var index1 = hashTable.insert('key1', 'value1');
     var index2 = hashTable.insert('key2', 'value2');
-    expect( hashTable._storage.get(index1) ).toEqual('value1');
-    expect( hashTable._storage.get(index2) ).toEqual('value2');
+    expect( hashTable.retrieve(index1) ).toEqual('value1');
+    expect( hashTable.retrieve(index2) ).toEqual('value2');
   });
 
   it("should retrieve two key-value pairs", function() {
