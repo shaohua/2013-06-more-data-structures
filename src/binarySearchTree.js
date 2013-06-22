@@ -7,6 +7,7 @@ var BinarySearchTree = function(value){
 BinarySearchTree.prototype._walker = function(node, input){
 
   if(node.value === undefined || node.value === null) {
+    console.log('what is node?', node);
     return {found: node, pos: "itself"};
     // node.value = input; //return node and 'itself'
     // console.log('inserting', input, node.value);
@@ -16,18 +17,20 @@ BinarySearchTree.prototype._walker = function(node, input){
       return;
     } else {
 
-      if(node.value > input){
+      if(node.value < input){
 
         if(node.right === null || node.right === undefined){
+          console.log('node is to the right');
           return {found: node, pos: "right"};
           // node.right = new BinarySearchTree(input); // return node and 'right'
         } else {
           this._walker(node.right, input);
         }
 
-      } else if(node.value < input) {
+      } else if(node.value > input) {
 
           if(node.left === null || node.left === undefined){
+            console.log('node is to the left');
             return {found: node, pos: "left"};
             // node.left = new BinarySearchTree(input); // return node and 'left'
           } else {
@@ -45,6 +48,7 @@ BinarySearchTree.prototype._walker = function(node, input){
 };
 
 BinarySearchTree.prototype.insert = function(input){
+  console.log("inserting!");
 // Step 1: Go to node and ask, "Am I bigger or smaller than you?"
 //         * If smaller, go to left node
 //           * If left node is undefined, become the left node
@@ -54,7 +58,16 @@ BinarySearchTree.prototype.insert = function(input){
 //           * If right node is present, go back to Step 1
 
   var result = this._walker(this, input);
-  result.found.value = input;
+  if (result.pos === "itself") {
+    result.found.value = input;
+  } else if (result.pos === "left") {
+    result.found.left.value = input;
+  } else if (result.pos === "right") {
+    result.found.right.value = input;
+  } else {
+    console.log("This should never happen!");
+  }
+
   console.log(result);
 
 };
