@@ -27,7 +27,7 @@ HashTable.prototype.reHash = function(new_limit){
     }
   }
 
-  console.log(retrievedArray);
+  // console.log(retrievedArray);
 
   var output_hashtable = new HashTable();
   //todo, fix two lines below, monkey patch
@@ -73,8 +73,10 @@ HashTable.prototype.insert = function(key, value){
   if (this._storage_crowdedness > (this._limit * 0.75)){
     var new_limit = Math.floor( this._limit*2 );
     this.reHash(new_limit);
+    // var that = this;
+    // that = that.reHash(new_limit);
     console.log("I rehashed to a bigger size! Yay!",
-      this._storage_crowdedness, 'to', new_limit);
+      'crowd: ', this._storage_crowdedness, '| old limit ', this._limit, '| new limit ', new_limit);
   }
   // return index;
 
@@ -107,10 +109,12 @@ HashTable.prototype.remove = function(key){
 
   if (this._storage_crowdedness < (this._limit * 0.25)){
     var new_limit = Math.floor(this._limit / 2);
-    if( new_limit !== 0 && this._storage_crowdedness !== 0 ){
-      this.reHash( new_limit );
+    if( new_limit > 0 && this._storage_crowdedness >= 0 ){
+      this.reHash(new_limit);
+      // var that = this;
+      // that = that.reHash(new_limit);
       console.log("I rehashed to a smaller size! Yay!",
-        this._storage_crowdedness, 'to', new_limit);
+        'crowd: ', this._storage_crowdedness, '| old limit ', this._limit, '| new limit ', new_limit);
     }
 
   }
