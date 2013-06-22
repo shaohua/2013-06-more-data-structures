@@ -98,6 +98,13 @@ describe("hashTable", function() {
     hashTable = hashTable.reHash(10);
     expect(hashTable.retrieve('key1')).toEqual('value1');
 
+  // it("should handle really really obnoxiously large sizes", function() {
+  //   for(var i=0; i<50000; i++){
+  //     hashTable.insert(i.toString(), 'LOL'+i);
+  //     expect(hashTable.retrieve('39657')).toEqual('LOL39657');
+  //   }
+  // });
+
   });
 
   // add more tests here to test the functionality of hashTable
