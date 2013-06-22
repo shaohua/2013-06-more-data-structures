@@ -4,12 +4,12 @@ var BinarySearchTree = function(value){
   this.right = undefined;
 };
 
-BinarySearchTree.prototype._walker = function(node, input, containFlag){
-  containFlag = containFlag || false;
+BinarySearchTree.prototype._walker = function(node, input){
 
   if(node.value === undefined || node.value === null) {
-    node.value = input;
-    console.log('inserting', input, node.value);
+    return {found: node, pos: "itself"};
+    // node.value = input; //return node and 'itself'
+    // console.log('inserting', input, node.value);
   } else {
     if(node.value === input){
       console.log("This value is already in the tree!");
@@ -19,17 +19,19 @@ BinarySearchTree.prototype._walker = function(node, input, containFlag){
       if(node.value > input){
 
         if(node.right === null || node.right === undefined){
-          node.right = new BinarySearchTree(input);
+          return {found: node, pos: "right"};
+          // node.right = new BinarySearchTree(input); // return node and 'right'
         } else {
-          walker(node.right, input);
+          this._walker(node.right, input);
         }
 
       } else if(node.value < input) {
 
           if(node.left === null || node.left === undefined){
-            node.left = new BinarySearchTree(input);
+            return {found: node, pos: "left"};
+            // node.left = new BinarySearchTree(input); // return node and 'left'
           } else {
-            walker(node.left, input);
+            this._walker(node.left, input);
           }
 
       } else {
@@ -51,7 +53,9 @@ BinarySearchTree.prototype.insert = function(input){
 //           * If right node is undefined, become the right node
 //           * If right node is present, go back to Step 1
 
-  this._walker(this, input);
+  var result = this._walker(this, input);
+  result.found.value = input;
+  console.log(result);
 
 };
 
