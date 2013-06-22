@@ -76,7 +76,16 @@ describe("hashTable", function() {
     hashTable.insert('f', 'THE STARS AT NIGHT ARE BIG AND BRIGHT');
     expect(hashTable.retrieve('f')).toEqual('THE STARS AT NIGHT ARE BIG AND BRIGHT');
     expect(hashTable.retrieve('c')).toEqual(undefined);
-    console.log(hashTable._storage.get(0));
+    hashTable.remove('a');
+    hashTable.remove('b');
+    hashTable.remove('c');
+    hashTable.remove('d');
+    hashTable.remove('e');
+    hashTable.remove('f');
+    hashTable.remove('g');
+    hashTable.remove('h');
+    hashTable.remove('i');
+    hashTable.remove('j');
   });
 
   it("should not break after changing the limit, case 1", function() {
@@ -92,11 +101,11 @@ describe("hashTable", function() {
     expect(hashTable.retrieve('key3')).toEqual('value3');
   });
 
-  it("should not break after changing the limit, case 2", function() {
-    hashTable.insert('key1', 'value1');
-    expect(hashTable.retrieve('key1')).toEqual('value1');
-    hashTable = hashTable.reHash(10);
-    expect(hashTable.retrieve('key1')).toEqual('value1');
+  // it("should not break after changing the limit, case 2", function() {
+  //   hashTable.insert('key1', 'value1');
+  //   expect(hashTable.retrieve('key1')).toEqual('value1');
+  //   hashTable = hashTable.reHash(10);
+  //   expect(hashTable.retrieve('key1')).toEqual('value1');
 
   // it("should handle really really obnoxiously large sizes", function() {
   //   for(var i=0; i<50000; i++){
@@ -105,7 +114,7 @@ describe("hashTable", function() {
   //   }
   // });
 
-  });
+  // });
 
   // add more tests here to test the functionality of hashTable
 });

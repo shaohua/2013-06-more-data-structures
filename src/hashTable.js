@@ -71,8 +71,10 @@ HashTable.prototype.insert = function(key, value){
   this._storage.set(index, retrievedArray);
 
   if (this._storage_crowdedness > (this._limit * 0.75)){
-    this.reHash(this._limit*2);
-    console.log("I rehashed to a bigger size! Yay!", this._storage_crowdedness);
+    var new_limit = Math.floor( this._limit*2 );
+    this.reHash(new_limit);
+    console.log("I rehashed to a bigger size! Yay!",
+      this._storage_crowdedness, 'to', new_limit);
   }
   // return index;
 
@@ -104,8 +106,13 @@ HashTable.prototype.remove = function(key){
   this._storage.set(index, retrievedArray);
 
   if (this._storage_crowdedness < (this._limit * 0.25)){
-    this.reHash( Math.floor(this._limit / 2) );
-    console.log("I rehashed to a smaller size! Yay!", this._storage_crowdedness);
+    var new_limit = Math.floor(this._limit / 2);
+    if( new_limit !== 0 && this._storage_crowdedness !== 0 ){
+      this.reHash( new_limit );
+      console.log("I rehashed to a smaller size! Yay!",
+        this._storage_crowdedness, 'to', new_limit);
+    }
+
   }
 
 };
