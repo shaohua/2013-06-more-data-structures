@@ -10,14 +10,8 @@ var HashTable = function(){
   this._storage = makeLimitedArray(this._limit);
 };
 
-HashTable.prototype.quickHash = function(key){
-  var index = getIndexBelowMaxForKey(key, this._limit);
-  index = Number(index);
-  return index;
-};
-
 HashTable.prototype.insert = function(key, value){
-  var index = this.quickHash(key);
+  var index = Number( getIndexBelowMaxForKey(key, this._limit) );
   var input = [key, value];
   var retrievedArray = this._storage.get(index) || [];
 
@@ -41,7 +35,8 @@ HashTable.prototype.insert = function(key, value){
 };
 
 HashTable.prototype.retrieve = function(key){
-  var key_value_pair = this._storage.get(this.quickHash(key));
+  var index = Number( getIndexBelowMaxForKey(key, this._limit) );
+  var key_value_pair = this._storage.get(index);
   if (key_value_pair === undefined) {
     return undefined;
   } else {
@@ -55,7 +50,7 @@ HashTable.prototype.retrieve = function(key){
 };
 
 HashTable.prototype.remove = function(key){
-  var index = this.quickHash(key);
+  var index = Number( getIndexBelowMaxForKey(key, this._limit) );
   var retrievedArray = this._storage.get(index);
   for (var i=0; i<retrievedArray.length; i++) {
     if (retrievedArray[i][0] === key) {
