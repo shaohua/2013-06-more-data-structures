@@ -1,5 +1,5 @@
 var HashTable = function(){
-  this._limit = 2;
+  this._limit = 1;
 
   // Use a limited array to store inserted elements.
   // It'll keep you from using too much space. Usage:
@@ -8,51 +8,12 @@ var HashTable = function(){
   //   limitedArray.get(3); // alerts 'hi'
   //
   this._storage = makeLimitedArray(this._limit);
-
-  this._storage_crowdedness = 0;
-};
-
-HashTable.prototype.quickHash = function(key){
-  var index = getIndexBelowMaxForKey(key, this._limit);
-  index = Number(index);
-  return index;
-};
-
-HashTable.prototype.reHash = function(new_limit){
-  var retrievedArray = [];
-  for(var i=0; i < this._limit; i++){
-    var from_storage = this._storage.get(i);
-    if(from_storage){
-      retrievedArray.push(from_storage);
-    }
-  }
-
-  // console.log(retrievedArray);
-
-  var output_hashtable = new HashTable();
-  //todo, fix two lines below, monkey patch
-  output_hashtable._limit = new_limit;
-  output_hashtable._storage = makeLimitedArray(new_limit);
-
-  for(var index=0; index < retrievedArray.length; index++){
-    for(var j=0; j < retrievedArray[index].length; j++){
-      output_hashtable.insert(retrievedArray[index][j][0], retrievedArray[index][j][1]);
-    }
-  }
-
-  // debugger;
-  return output_hashtable;
-
 };
 
 HashTable.prototype.insert = function(key, value){
-  var index = this.quickHash(key);
+  var index = Number( getIndexBelowMaxForKey(key, this._limit) );
   var input = [key, value];
-  var retrievedArray = this._storage.get(index);
-  if ( retrievedArray === null || retrievedArray === undefined) {
-    retrievedArray = [];
-    this._storage_crowdedness += 1;
-  }
+  var retrievedArray = this._storage.get(index) || [];
 
   //Checking to see if our array index already contains the key.
   //If yes, overwrite it. If no, push the new key:value pair to the array.
@@ -69,22 +30,14 @@ HashTable.prototype.insert = function(key, value){
   }
 
   this._storage.set(index, retrievedArray);
-
-  if (this._storage_crowdedness > (this._limit * 0.75)){
-    var new_limit = Math.floor( this._limit*2 );
-    this.reHash(new_limit);
-    // var that = this;
-    // that = that.reHash(new_limit);
-    console.log("I rehashed to a bigger size! Yay!",
-      'crowd: ', this._storage_crowdedness, '| old limit ', this._limit, '| new limit ', new_limit);
-  }
-  // return index;
+  return index;
 
 };
 
 HashTable.prototype.retrieve = function(key){
-  var key_value_pair = this._storage.get(this.quickHash(key));
-  if (key_value_pair === undefined || key_value_pair === null) {
+  var index = Number( getIndexBelowMaxForKey(key, this._limit) );
+  var key_value_pair = this._storage.get(index);
+  if (key_value_pair === undefined) {
     return undefined;
   } else {
     for (var i=0; i<key_value_pair.length; i++) {
@@ -97,28 +50,14 @@ HashTable.prototype.retrieve = function(key){
 };
 
 HashTable.prototype.remove = function(key){
-  var index = this.quickHash(key);
+  var index = Number( getIndexBelowMaxForKey(key, this._limit) );
   var retrievedArray = this._storage.get(index);
   for (var i=0; i<retrievedArray.length; i++) {
     if (retrievedArray[i][0] === key) {
       retrievedArray.splice(i,1);
-      this._storage_crowdedness -= 1;
     }
   }
   this._storage.set(index, retrievedArray);
-
-  if (this._storage_crowdedness < (this._limit * 0.25)){
-    var new_limit = Math.floor(this._limit / 2);
-    if( new_limit > 0 && this._storage_crowdedness >= 0 ){
-      this.reHash(new_limit);
-      // var that = this;
-      // that = that.reHash(new_limit);
-      console.log("I rehashed to a smaller size! Yay!",
-        'crowd: ', this._storage_crowdedness, '| old limit ', this._limit, '| new limit ', new_limit);
-    }
-
-  }
-
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
