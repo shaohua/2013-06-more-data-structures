@@ -7,7 +7,7 @@ var BinarySearchTree = function(value){
 BinarySearchTree.prototype._walker = function(node, input){
 
   if(node.value === undefined || node.value === null) {
-    console.log('what is node?', node);
+    console.log('node is itself');
     return {found: node, pos: "itself"};
     // node.value = input; //return node and 'itself'
     // console.log('inserting', input, node.value);
@@ -24,7 +24,7 @@ BinarySearchTree.prototype._walker = function(node, input){
           return {found: node, pos: "right"};
           // node.right = new BinarySearchTree(input); // return node and 'right'
         } else {
-          this._walker(node.right, input);
+          return this._walker(node.right, input);
         }
 
       } else if(node.value > input) {
@@ -34,7 +34,7 @@ BinarySearchTree.prototype._walker = function(node, input){
             return {found: node, pos: "left"};
             // node.left = new BinarySearchTree(input); // return node and 'left'
           } else {
-            this._walker(node.left, input);
+            return this._walker(node.left, input);
           }
 
       } else {
@@ -67,8 +67,6 @@ BinarySearchTree.prototype.insert = function(input){
   } else {
     console.log("This should never happen!");
   }
-
-  console.log(result);
 
 };
 

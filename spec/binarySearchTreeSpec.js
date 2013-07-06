@@ -16,13 +16,24 @@ describe("binarySearchTree", function() {
     expect(binarySearchTree.value).toEqual(5);
   });
 
-  it("should insert one value to the search tree", function() {
+  it("should insert more than one values to the search tree, RIGHT", function() {
     binarySearchTree.insert(5);
     binarySearchTree.insert(7);
     binarySearchTree.insert(8);
     binarySearchTree.insert(10);
     expect(binarySearchTree.value).toEqual(5);
-    expect(binarySearchTree.right.value).toEqual(5);
+    expect(binarySearchTree.right.value).toEqual(7);
+
+  });
+
+  it("should insert more than one values to the search tree, LEFT", function() {
+    binarySearchTree.insert(15);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(8);
+    expect(binarySearchTree.value).toEqual(15);
+    expect(binarySearchTree.right).toEqual(undefined);
+    expect(binarySearchTree.left.value).toEqual(10);
 
   });
   // add more tests here to test the functionality of binarySearchTree
