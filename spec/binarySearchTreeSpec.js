@@ -36,5 +36,19 @@ describe("binarySearchTree", function() {
     expect(binarySearchTree.left.value).toEqual(10);
 
   });
+
+  it("should insert more than one values to the search tree, BOTH", function() {
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(15);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(8);
+    expect(binarySearchTree.value).toEqual(10);
+    expect(binarySearchTree.right.value).toEqual(15);
+    expect(binarySearchTree.left.value).toEqual(9);
+    expect(binarySearchTree.left.left.value).toEqual(8);
+
+
+  });
+
   // add more tests here to test the functionality of binarySearchTree
 });
