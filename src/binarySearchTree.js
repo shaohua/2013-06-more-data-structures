@@ -48,7 +48,7 @@ BinarySearchTree.prototype._walker = function(node, input){
 };
 
 BinarySearchTree.prototype.insert = function(input){
-  console.log("inserting!");
+  console.log("inserting---", input);
 // Step 1: Go to node and ask, "Am I bigger or smaller than you?"
 //         * If smaller, go to left node
 //           * If left node is undefined, become the left node
@@ -61,9 +61,9 @@ BinarySearchTree.prototype.insert = function(input){
   if (result.pos === "itself") {
     result.found.value = input;
   } else if (result.pos === "left") {
-    result.found.left.value = input;
+    result.found.left = new BinarySearchTree(input);
   } else if (result.pos === "right") {
-    result.found.right.value = input;
+    result.found.right = new BinarySearchTree(input);
   } else {
     console.log("This should never happen!");
   }
