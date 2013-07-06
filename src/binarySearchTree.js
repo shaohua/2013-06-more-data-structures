@@ -7,14 +7,11 @@ var BinarySearchTree = function(value){
 BinarySearchTree.prototype._walker = function(node, input){
 
   if(node.value === undefined || node.value === null) {
-    console.log('node is itself');
-    return {found: node, pos: "itself"};
-    // node.value = input; //return node and 'itself'
-    // console.log('inserting', input, node.value);
+    return {found: node, pos: "first"};
   } else {
     if(node.value === input){
       console.log("This value is already in the tree!");
-      return;
+      return {found: node, pos: 'contained'};
     } else {
 
       if(node.value < input){
@@ -58,7 +55,7 @@ BinarySearchTree.prototype.insert = function(input){
 //           * If right node is present, go back to Step 1
 
   var result = this._walker(this, input);
-  if (result.pos === "itself") {
+  if (result.pos === "first") {
     result.found.value = input;
   } else if (result.pos === "left") {
     result.found.left = new BinarySearchTree(input);
@@ -71,14 +68,12 @@ BinarySearchTree.prototype.insert = function(input){
 };
 
 BinarySearchTree.prototype.contains = function (query) {
-// found = false;
-// walker(node){ Go to node, compare 'query' to node.value,
-//         if true, found = true, return
-//         if query > node.value, current_node = node.right
-//         else if query < node.value, current_node = node.left
-//         walker(current_node)
-// }
-// walker(this)
+  var result = this._walker(this, query);
+  if (result.pos === 'contained'){
+    return true;
+  } else {
+    return false;
+  }
 };
 
 BinarySearchTree.prototype.depthFirstLog = function(callback){
