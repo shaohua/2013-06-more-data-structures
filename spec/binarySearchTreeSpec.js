@@ -70,5 +70,16 @@ describe("binarySearchTree", function() {
     expect(binarySearchTree.contains(13)).toEqual(false);
   });
 
+
+  it("should walk depth first", function() {
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(8);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(11);
+    binarySearchTree.insert(13);
+    expect(binarySearchTree.depthFirstLog()).toEqual([10,8,7,10,8,9,10,12,11,10,12,13]);
+  });
   // add more tests here to test the functionality of binarySearchTree
 });

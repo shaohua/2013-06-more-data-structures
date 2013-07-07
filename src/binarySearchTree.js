@@ -77,7 +77,28 @@ BinarySearchTree.prototype.contains = function (query) {
 };
 
 BinarySearchTree.prototype.depthFirstLog = function(callback){
-// Step 1: Go to node, callback(node)
-//         While node has chi
+
+  var output = [];
+
+  var walker = function(prefix, node){
+    var prefix_copy = prefix.slice();
+    prefix_copy.push(node.value);
+
+    if(node.left !== null && node.left !== undefined){
+      walker(prefix_copy, node.left);
+    }
+    if(node.right !== null && node.right !== undefined){
+      walker(prefix_copy, node.right);
+    }
+    if( (node.left === null || node.left === undefined) && 
+        (node.right === null || node.right === undefined) ){
+        output = output.concat(prefix_copy);
+    }
+
+  };
+
+  walker([], this);
+
+  return output;
 
 };
