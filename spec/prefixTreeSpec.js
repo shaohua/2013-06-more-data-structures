@@ -44,9 +44,12 @@ describe("prefixTree", function() {
     prefixTree.insert('it');
     prefixTree.insert('hi');
     prefixTree.insert('hit');
+    prefixTree.insert('he');
+    prefixTree.insert('heheeeee');
     prefixTree.remove('u');
     prefixTree.remove('it');
     prefixTree.remove('hit');
+    prefixTree.remove('heheeeee');
     expect(prefixTree.contains('u')).toEqual(false);
     expect(prefixTree.contains('it')).toEqual(false);
     expect(prefixTree.contains('hit')).toEqual(false);

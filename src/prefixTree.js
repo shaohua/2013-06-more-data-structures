@@ -1,73 +1,62 @@
 //http://www.technicalypto.com/2010/04/trie-data-structure-part-2-node-and.html
 var PrefixTree = function(){
-  this.root = new TrieNode('');
-
+  this.root = {};
 };
 
 PrefixTree.prototype.insert = function(input){
-  var current_collection = this.root.children;
+  var node = this.root;
 
   for(var i=0; i<input.length; i++){
-    if(!current_collection.hasOwnProperty(input[i])){
-      current_collection[input[i]] = new TrieNode(input[i]);
+    if(!node[input[i]]) {
+      node[input[i]] = {};
     }
-    if(i===input.length-1) {
-      current_collection[input[i]].marker = true;
-    }
-    current_collection = current_collection[input[i]].children;
+    node = node[input[i]];
   }
+
+  node.eos = true; //end of string
 };
 
 PrefixTree.prototype.remove = function(input){
-  var last_collection;
-  var hasDeleted = false;
+  var node, len;
+  var eosDeleted = false;
 
-  //chops off the last character of the string at the end of each loop
   while(input.length>0){
-    //always starts from the root
-    last_collection = this.root.children;
-    var len = input.length;
+    node = this.root;
+    len = input.length;
 
+    //go to second to last
     for(var i=0; i<len-1; i++){
-      last_collection = last_collection[input[i]].children;
+      node = node[input[i]];
+    }
+    var last_node = node[input[len-1]];
+
+    if(last_node.eos){
+      if(eosDeleted){
+        break;
+      } else {
+        eosDeleted = true;
+        delete last_node.eos;
+        //such that # of keys will be zero if no other node attached
+      }
     }
 
-    var last_node = last_collection[input[len-1]];
-    //length-checks for whether any other word depends on this node
-    if( Object.keys(last_node.children).length === 0 ) {
-      //marker-checks for shorter words that are a subset of the current string
-      if(last_node.marker) {
-        if(hasDeleted) {
-          break;
-        } else {
-          hasDeleted = true;
-        }
-      }
-      //delete the actual obj
-      delete last_collection[input[len-1]];
-    } else {
-      break;
+    if(Object.keys(last_node).length===0){
+      delete node[input[len-1]];
     }
-    input = input.substr(0,len-1);
+
+
+    input = input.substr(0, len-1);
   }
 };
 
 PrefixTree.prototype.contains = function(input){
-  var current_level = this.root.children;
+  var node = this.root;
 
   for(var i=0; i<input.length; i++){
-    if(!current_level.hasOwnProperty(input[i])){
+    if(!node[input[i]]) {
       return false;
     }
-    current_level = current_level[input[i]].children;
+    node = node[input[i]];
   }
-
   return true;
-};
-
-
-var TrieNode = function(value){
-  this.value = value;
-  this.marker = false;
-  this.children = {};
 };
