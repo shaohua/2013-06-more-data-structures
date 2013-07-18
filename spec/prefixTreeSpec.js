@@ -5,18 +5,18 @@ describe("prefixTree", function() {
     prefixTree = new PrefixTree();
   });
 
-  xit("should have methods named 'insert', 'remove' and 'contains'", function() {
+  it("should have methods named 'insert', 'remove' and 'contains'", function() {
     expect(prefixTree.insert).toEqual(jasmine.any(Function));
     expect(prefixTree.remove).toEqual(jasmine.any(Function));
     expect(prefixTree.contains).toEqual(jasmine.any(Function));
   });
 
-  xit("should insert one value to the tree", function() {
+  it("should insert one value to the tree", function() {
     prefixTree.insert('abc');
     expect(prefixTree.contains('abc')).toEqual(true);
   });
 
-  xit("should insert more than one values", function() {
+  it("should insert more than one values", function() {
     prefixTree.insert('nike');
     prefixTree.insert('abc');
     prefixTree.insert('nice');
@@ -29,7 +29,7 @@ describe("prefixTree", function() {
     expect(prefixTree.contains('nikee')).toEqual(false);
   });
 
-  xit("should remove values", function() {
+  it("should remove values", function() {
     prefixTree.insert('shaohua');
     prefixTree.insert('shout');
     prefixTree.remove('shout');
@@ -50,7 +50,7 @@ describe("prefixTree", function() {
     expect(prefixTree.contains('u')).toEqual(false);
     expect(prefixTree.contains('it')).toEqual(false);
     expect(prefixTree.contains('hit')).toEqual(false);
-    // expect(prefixTree.contains('hi')).toEqual(true);
+    expect(prefixTree.contains('hi')).toEqual(true);
   });
 
 });

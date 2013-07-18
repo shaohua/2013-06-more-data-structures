@@ -20,28 +20,34 @@ PrefixTree.prototype.insert = function(input){
 
 PrefixTree.prototype.remove = function(input){
   var last_collection;
+  var hasDeleted = false;
 
+  //chops off the last character of the string at the end of each loop
   while(input.length>0){
-    //debugger;
+    //always starts from the root
     last_collection = this.root.children;
     var len = input.length;
-    //second to last one
+
     for(var i=0; i<len-1; i++){
       last_collection = last_collection[input[i]].children;
     }
-    console.log("Last collection: ", last_collection);
-    // debugger;
-    // last_collection['u'].children['t'].children
-    if( Object.keys(last_collection[input[len-1]].children).length === 0 ) {
-      // debugger;
-      console.log('-', last_collection[input[len-1]].children);
-      console.log("Deleting ", last_collection[input[len-1]]);
+
+    var last_node = last_collection[input[len-1]];
+    //length-checks for whether any other word depends on this node
+    if( Object.keys(last_node.children).length === 0 ) {
+      //marker-checks for shorter words that are a subset of the current string
+      if(last_node.marker) {
+        if(hasDeleted) {
+          break;
+        } else {
+          hasDeleted = true;
+        }
+      }
+      //delete the actual obj
       delete last_collection[input[len-1]];
     } else {
-      console.log("input before break: ", input);
       break;
     }
-    console.log("input: ", input);
     input = input.substr(0,len-1);
   }
 };
