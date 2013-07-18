@@ -29,13 +29,27 @@ describe("prefixTree", function() {
     expect(prefixTree.contains('nikee')).toEqual(false);
   });
 
-  it("should remove values", function() {
+  xit("should remove values", function() {
     prefixTree.insert('shaohua');
     prefixTree.insert('shout');
     prefixTree.remove('shout');
     prefixTree.remove('shao');
     expect(prefixTree.contains('shaohua')).toEqual(true);
     expect(prefixTree.contains('shout')).toEqual(false);
+  });
+
+  it("should remove edge cases", function() {
+    prefixTree.insert('u');
+    prefixTree.insert('it');
+    prefixTree.insert('hi');
+    prefixTree.insert('hit');
+    prefixTree.remove('u');
+    prefixTree.remove('it');
+    prefixTree.remove('hit');
+    expect(prefixTree.contains('u')).toEqual(false);
+    expect(prefixTree.contains('it')).toEqual(false);
+    expect(prefixTree.contains('hit')).toEqual(false);
+    expect(prefixTree.contains('hi')).toEqual(true);
   });
 
 });
