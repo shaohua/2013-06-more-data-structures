@@ -11,20 +11,23 @@ describe("prefixTree", function() {
     expect(prefixTree.contains).toEqual(jasmine.any(Function));
   });
 
-  it("should insert one value to the search tree", function() {
+  it("should insert one value to the tree", function() {
     prefixTree.insert('abc');
-    prefixTree.insert('acd');
-    prefixTree.insert('abcde');
-    expect(prefixTree.value).toEqual(5);
-    console.log('trie', prefixTree);
+    expect(prefixTree.contains('abc')).toEqual(true);
   });
 
-  xit("should insert more than one values to the search tree, LEFT", function() {
+  xit("should insert more than one values", function() {
     prefixTree.insert('nike');
     prefixTree.insert('abc');
     prefixTree.insert('nice');
     prefixTree.insert('name');
-    expect(prefixTree.left.value).toEqual(10);
+    expect(prefixTree.contains('nike')).toEqual(true);
+    expect(prefixTree.contains('abc')).toEqual(true);
+    expect(prefixTree.contains('nice')).toEqual(true);
+    expect(prefixTree.contains('name')).toEqual(true);
+    expect(prefixTree.contains('nick')).toEqual(false);
+    expect(prefixTree.contains('nikee')).toEqual(false);
+
   });
 
 });
