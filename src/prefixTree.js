@@ -31,19 +31,19 @@ PrefixTree.prototype.remove = function(input){
     var last_node = node[input[len-1]];
 
     if(last_node.eos){
-      if(eosDeleted){
-        break;
-      } else {
+      if(!eosDeleted){
         eosDeleted = true;
         delete last_node.eos;
         //such that # of keys will be zero if no other node attached
       }
     }
 
+    //have to delete eos before hand to make it truthy
     if(Object.keys(last_node).length===0){
       delete node[input[len-1]];
+    } else {
+      break;
     }
-
 
     input = input.substr(0, len-1);
   }
