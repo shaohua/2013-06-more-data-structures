@@ -16,11 +16,33 @@ PrefixTree.prototype.insert = function(input){
     }
     current_collection = current_collection[input[i]].children;
   }
-
 };
 
-PrefixTree.prototype.remove = function(){
+PrefixTree.prototype.remove = function(input){
+  var last_collection;
 
+  while(input.length>0){
+    //debugger;
+    last_collection = this.root.children;
+    var len = input.length;
+    //second to last one
+    for(var i=0; i<len-2; i++){
+      last_collection = last_collection[input[i]].children;
+    }
+    console.log("Second to last collection: ", last_collection);
+    // debugger;
+    // last_collection['u'].children['t'].children
+    if( Object.keys(last_collection[input[len-2]].children[input[len-1]].children).length === 0 ) {
+      // debugger;
+      console.log("Deleting ", last_collection[input[len-2]].children[input[len-1]]);
+      delete last_collection[input[len-2]].children[input[len-1]];
+    } else {
+      console.log("input before break: ", input);
+      break;
+    }
+    console.log("input: ", input);
+    input = input.substr(0,len-1);
+  }
 };
 
 PrefixTree.prototype.contains = function(input){

@@ -11,7 +11,7 @@ describe("prefixTree", function() {
     expect(prefixTree.contains).toEqual(jasmine.any(Function));
   });
 
-  it("should insert one value to the tree", function() {
+  xit("should insert one value to the tree", function() {
     prefixTree.insert('abc');
     expect(prefixTree.contains('abc')).toEqual(true);
   });
@@ -27,7 +27,15 @@ describe("prefixTree", function() {
     expect(prefixTree.contains('name')).toEqual(true);
     expect(prefixTree.contains('nick')).toEqual(false);
     expect(prefixTree.contains('nikee')).toEqual(false);
+  });
 
+  it("should remove values", function() {
+    prefixTree.insert('shaohua');
+    prefixTree.insert('shout');
+    prefixTree.remove('shout');
+    prefixTree.remove('shao');
+    expect(prefixTree.contains('shaohua')).toEqual(true);
+    expect(prefixTree.contains('shout')).toEqual(false);
   });
 
 });
