@@ -26,16 +26,17 @@ PrefixTree.prototype.remove = function(input){
     last_collection = this.root.children;
     var len = input.length;
     //second to last one
-    for(var i=0; i<len-2; i++){
+    for(var i=0; i<len-1; i++){
       last_collection = last_collection[input[i]].children;
     }
-    console.log("Second to last collection: ", last_collection);
+    console.log("Last collection: ", last_collection);
     // debugger;
     // last_collection['u'].children['t'].children
-    if( Object.keys(last_collection[input[len-2]].children[input[len-1]].children).length === 0 ) {
+    if( Object.keys(last_collection[input[len-1]].children).length === 0 ) {
       // debugger;
-      console.log("Deleting ", last_collection[input[len-2]].children[input[len-1]]);
-      delete last_collection[input[len-2]].children[input[len-1]];
+      console.log('-', last_collection[input[len-1]].children);
+      console.log("Deleting ", last_collection[input[len-1]]);
+      delete last_collection[input[len-1]];
     } else {
       console.log("input before break: ", input);
       break;
